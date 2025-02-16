@@ -3,6 +3,7 @@ import { axiosInstance } from "../utils/axiosInstance";
 import { Link } from "react-router-dom";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
+import Cookies from 'js-cookie'
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -11,11 +12,11 @@ const Login = () => {
   const handleShow = () => {
     show === true ? setShow(false) : setShow(true);
   };
-
+  const ck = Cookies.get("token")
+  console.log(ck)
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-    
       const res = await toast.promise(
         axiosInstance.post("/api/auth/login", {
           email,

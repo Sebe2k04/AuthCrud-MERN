@@ -10,7 +10,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
-
+  console.log(import.meta.env.VITE_API_URL)
   const [show, setShow] = useState(false);
   const handleShow = () => {
     show === true ? setShow(false) : setShow(true);
@@ -25,6 +25,9 @@ const Signup = () => {
         axiosInstance.post("/api/auth/signup", {
           email,
           password,
+          username,
+          mobile_no:mobile,
+
         }),
         {
           pending: "Authenticating",
@@ -131,8 +134,8 @@ const Signup = () => {
               <div className="flex border-gray-200 rounded-md border">
                 <input
                   type={show ? "text" : "password"}
-                  name="password"
-                  id="password"
+                  name="password2"
+                  id="password2"
                   required
                   value={password2}
                   onChange={(e) => setPassword2(e.target.value)}
