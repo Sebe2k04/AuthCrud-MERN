@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Footer from "./components/Footer";
 import AuthProvider from "./context/AuthProvider";
 import { ToastContainer } from "react-toastify";
+import SecurePages from "./SecurePages";
 
 function App() {
   return (
@@ -17,10 +18,13 @@ function App() {
       <div className="min-h-[70vh]">
         <AuthProvider>
           <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route exact path="/auth/login" element={<Login />} />
-            <Route exact path="/auth/signup" element={<Signup />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/auth/login" element={<Login />} />
+            <Route path="/auth/signup" element={<Signup />} />
+            <Route path="/secure/*" element={<SecurePages />} />
             <Route path="*" element={<NotFound />} />
+            
+
           </Routes>
         </AuthProvider>
       </div>

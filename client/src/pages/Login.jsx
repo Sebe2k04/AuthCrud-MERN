@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { axiosInstance } from "../utils/axiosInstance";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import Cookies from 'js-cookie'
 
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
@@ -28,6 +29,7 @@ const Login = () => {
           error: "Invalid credentials",
         }
       );
+      navigate('/secure/products')
       console.log(res);
     } catch (error) {
       console.log(error);
