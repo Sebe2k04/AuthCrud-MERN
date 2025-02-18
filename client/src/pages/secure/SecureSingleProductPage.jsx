@@ -32,7 +32,7 @@ const SecureSingleProductPage = () => {
       {product && (
         <div className="grid lg:grid-cols-2 pt-5">
           <div className="flex justify-center">
-            <img src={product.image} alt="" />
+          <img src={product.image} alt={product.name} className="object-cover min-w-[250px] max-w-[300px] lg:min-w-[400px] lg:max-w-[450px] aspect-square rounded-xl" />
           </div>
           <div className="pt-10">
             <h1 className="text-2xl font-semibold">{product.name}</h1>
