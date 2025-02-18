@@ -3,17 +3,23 @@ import { axiosInstance } from "../../utils/axiosInstance";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { IoArrowBackOutline } from "react-icons/io5";
+import Loader from "../../components/Loader";
 
 const SecureSingleProductPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const fetchProduct = async () => {
+      setLoading(true);
       try {
         const res = await axiosInstance(`/api/product/${id}`);
         console.log(res.data);
         setProduct(res.data);
+        setLoading(false);
       } catch (error) {
+        setLoading(false);
         toast.error(error.message);
         console.log(error);
       }
@@ -29,23 +35,36 @@ const SecureSingleProductPage = () => {
         <IoArrowBackOutline />
         Back
       </Link>
-      {product && (
-        <div className="grid lg:grid-cols-2 pt-5">
-          <div className="flex justify-center">
-          <img src={product.image} alt={product.name} className="object-cover min-w-[250px] max-w-[300px] lg:min-w-[400px] lg:max-w-[450px] aspect-square rounded-xl" />
-          </div>
-          <div className="pt-10">
-            <h1 className="text-2xl font-semibold">{product.name}</h1>
-            <h2 className="pt-2"><span className="font-semibold">Quantity :</span> {product.quantity}</h2>
-            <div className="flex gap-5 pt-2">
-              <h1 className="text-xl ">&#8377; {product.selling_price}</h1>
-              <h3 className="text-red-500 line-through">
-                &#8377; {product.retail_price}
-              </h3>
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="">
+          {product && (
+            <div className="grid lg:grid-cols-2 pt-5">
+              <div className="flex justify-center">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="object-cover min-w-[250px] max-w-[300px] lg:min-w-[400px] lg:max-w-[450px] aspect-square rounded-xl"
+                />
+              </div>
+              <div className="pt-10">
+                <h1 className="text-2xl font-semibold">{product.name}</h1>
+                <h2 className="pt-2">
+                  <span className="font-semibold">Quantity :</span>{" "}
+                  {product.quantity}
+                </h2>
+                <div className="flex gap-5 pt-2">
+                  <h1 className="text-xl ">&#8377; {product.selling_price}</h1>
+                  <h3 className="text-red-500 line-through">
+                    &#8377; {product.retail_price}
+                  </h3>
+                </div>
+                <p className="pt-3 font-semibold">Description : </p>
+                <p>{product.description}</p>
+              </div>
             </div>
-            <p className="pt-3 font-semibold">Description : </p>
-            <p>{product.description}</p>
-          </div>
+          )}
         </div>
       )}
     </div>
