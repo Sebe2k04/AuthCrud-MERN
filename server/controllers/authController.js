@@ -73,7 +73,11 @@ const signup = async (req, res) => {
       verification_otp
     });
     await user.save();
-
+    await sendEmail(
+      user.email,
+      "Verify Your AuthCrud Account",
+      `Your OTP IS: ${verification_otp}`
+    );
     res.status(201).json({ message: "User created", user });
   } catch (error) {
     res.status(500).json({ error: "Signup failed" });

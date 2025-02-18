@@ -23,7 +23,7 @@ const CreateProduct = () => {
     formdata.append("quantity", productData.quantity);
     formdata.append("description", productData.description);
     formdata.append("image", productData.image);
-
+    
     try {
       const res = await toast.promise(
         axiosInstance.post("/api/product/",

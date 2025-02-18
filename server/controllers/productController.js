@@ -20,7 +20,7 @@ const createProduct = async (req, res) => {
     else{
       return res.status(400).json({ message: "Image required", error });
     }
-    let vendor = req.productId
+    let vendor = req.userId
     const product = new Product({
       name,
       retail_price,
@@ -47,6 +47,9 @@ const editProduct = async (req, res) => {
   }
   try {
     const product = await Product.findById(req.params.id)
+    if(product.vendor !== req.userId){
+      return res.status(401).json({ message: "Unauthorized action" });
+    }
     let image_url = "";
     if (req.file) {
       const result = await cloudinary.uploader.upload(req.file.path, {
@@ -70,7 +73,7 @@ const editProduct = async (req, res) => {
 
 const getProducts = async (req, res) => {
   console.log("running")
-  const products = await Product.find({ vendor: req.productId });
+  const products = await Product.find({ vendor: req.userId });
   return res.status(200).json(products);
 };
 
@@ -82,10 +85,23 @@ const getSingleProduct = async(req,res)=>{
     return res.status(200).json(product)
 }
 
+const deleteProduct = async (req, res) => {
+  try {
+    const product = await Product.findByIdAndDelete(req.params.id);
+    console.log(product);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    return res.status(200).json({ message: "Product removed" });
+  } catch (error) {
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
 
 module.exports = {
     createProduct,
     getProducts,
     getSingleProduct,
-    editProduct
+    editProduct,
+    deleteProduct
 }

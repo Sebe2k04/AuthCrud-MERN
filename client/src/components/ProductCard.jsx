@@ -1,7 +1,26 @@
 import { Link } from "react-router-dom"
 import PropTypes from 'prop-types';
+import { axiosInstance } from "../utils/axiosInstance";
+import { toast } from "react-toastify";
 
 const ProductCard = ({product}) => {
+
+  const handleDelete = async() => {
+    // e.preventDefualt();
+    try {
+      const res = await toast.promise(axiosInstance.delete(`/api/product/${product._id}`),{
+        pending: "Creating product...",
+        success: "Product Deleted",
+        error: "Error",
+      })
+      console.log(res);
+      location.reload();
+    } catch (error) {
+      console.log(error)
+      toast.error(error.message)
+      
+    }
+  }
   return (
     <div className="border border-gray-400 rounded-xl pt-2 pb-0 ">
         <div className="px-2">
@@ -14,7 +33,7 @@ const ProductCard = ({product}) => {
         <div className="grid grid-cols-3 text-sm text-center rounded-b-xl bg-gray-200 py-1 divide-x-2 divide-gray-300">
           <Link to={`/secure/products/${product._id}`} className="">View</Link>
           <Link to={`/secure/products/edit/${product._id}`} className="">Edit</Link>
-          <button className="">Delete</button>
+          <button onClick={handleDelete} className="">Delete</button>
         </div>      
     </div>
   )

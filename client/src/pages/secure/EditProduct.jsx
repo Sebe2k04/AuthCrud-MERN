@@ -58,8 +58,8 @@ const EditProduct = () => {
           },
         }),
         {
-          pending: "Creating product...",
-          success: "Product Created",
+          pending: "Updating product...",
+          success: "Product Updated",
           error: "Error",
         }
       );
@@ -100,7 +100,7 @@ const EditProduct = () => {
         Back
       </Link>
       <div className="pt-5">
-        <h1 className="text-xl font-semibold">Create Product</h1>
+        <h1 className="text-xl font-semibold">Edit Product</h1>
         <div className="md:max-w-[600px]">
           <form
             onSubmit={handleSubmit}
