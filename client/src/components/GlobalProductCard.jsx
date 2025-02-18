@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const GlobalProductCard = ({ product }) => {
   return (
-    <div className="border border-gray-400 rounded-xl py-2 ">
+    <div className="border border-gray-200 rounded-xl py-2 ">
       <div className="px-2">
         <img src={product.image} alt={product.name} className="aspect-square object-cover rounded-xl" />
       </div>

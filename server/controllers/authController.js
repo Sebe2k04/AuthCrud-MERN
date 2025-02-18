@@ -105,6 +105,7 @@ const verifyOTP = async (req, res) => {
     }
     if (user.verification_otp === otp) {
       user.verified = true;
+      user.verification_otp = "";
       await user.save();
       res.status(200).json({ message: "OTP verified successfully" });
     } else {
