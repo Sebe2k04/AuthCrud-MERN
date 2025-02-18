@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 const ProductCard = ({product}) => {
 
   const handleDelete = async() => {
-    // e.preventDefualt();
     try {
       const res = await toast.promise(axiosInstance.delete(`/api/product/${product._id}`),{
         pending: "Deleting product...",
@@ -24,7 +23,7 @@ const ProductCard = ({product}) => {
   return (
     <div className="border border-gray-400 rounded-xl pt-2 pb-0 ">
         <div className="px-2">
-            <img src={product.image} alt={product.name} className="" />
+            <img src={product.image} alt={product.name} className="aspect-square object-cover rounded-xl" />
         </div>
         <div className="p-2 px-4">
           <h1 className="capitalize font-semibold max-w-fit truncate">{product.name}</h1>
