@@ -29,6 +29,8 @@ const Login = () => {
           error: "Invalid credentials",
         }
       );
+
+      Cookies.set('userToken', res.data.token, { expires: 365 })
       navigate("/secure/products");
       console.log(res);
       console.log(res.status);

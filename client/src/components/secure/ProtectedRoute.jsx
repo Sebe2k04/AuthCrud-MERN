@@ -13,7 +13,7 @@ const ProtectedRoute = ({children}) => {
   const location = useLocation();
   useEffect(() => {
     const fetchUser = async() => {
-      const cookie = Cookies.get("token");
+      const cookie = Cookies.get("userToken");
         if (cookie) {
               console.log("logged in")
               if (user === null) {
