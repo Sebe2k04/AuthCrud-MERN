@@ -24,10 +24,14 @@ const productSchema = new mongoose.Schema({
     description:{
         type:String,
         required:true
+    },
+    vendor:{
+        type:String,
+        required: true,
     }
 },{
     timestamps:true
 })
 
-const Products = new mongoose.model('Products',productSchema)
-module.exports = Products
+const Product = new mongoose.model('Product',productSchema)
+module.exports = Product

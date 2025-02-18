@@ -1,38 +1,62 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { IoArrowBackOutline } from "react-icons/io5";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { axiosInstance } from "../../utils/axiosInstance";
+import { useEffect } from "react";
 
-const CreateProduct = () => {
+const EditProduct = () => {
   const [productData, setProductData] = useState({
     name: "",
     selling_price: "",
     retail_price: "",
     quantity: "",
     description: "",
-    image:""
+    image: "",
   });
+  const { id } = useParams();
+  const [oldImage, setOldImage] = useState("");
+  console.log(productData);
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const res = await axiosInstance.get(`/api/product/${id}`);
+        console.log(res);
+        setProductData({
+          name: res.data.name,
+          selling_price: res.data.selling_price,
+          retail_price: res.data.retail_price,
+          quantity: res.data.quantity,
+          description: res.data.description,
+        });
+        setOldImage(res.data.image);
+      } catch (error) {
+        console.log(error);
+        toast.error(error.message);
+      }
+    };
+    fetchProduct();
+  }, []);
   // const [image, setImage] = useState(null);
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const formdata = new FormData();
     formdata.append("name", productData.name);
     formdata.append("selling_price", productData.selling_price);
     formdata.append("retail_price", productData.retail_price);
     formdata.append("quantity", productData.quantity);
     formdata.append("description", productData.description);
-    formdata.append("image", productData.image);
+    if (productData.image) {
+      formdata.append("image", productData.image);
+    }
 
     try {
       const res = await toast.promise(
-        axiosInstance.post("/api/product/",
-          formdata, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        ),
+        axiosInstance.put(`/api/product/${id}`, formdata, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }),
         {
           pending: "Creating product...",
           success: "Product Created",
@@ -148,22 +172,33 @@ const CreateProduct = () => {
                 className="w-full bg-inherit border min-h-[100px] px-5 py-1 border-gray-300 rounded-md"
               ></textarea>
             </div>
+            <div className="grid gap-2">
+              <h1>Old Image</h1>
+              {oldImage && (
+                <img
+                  src={oldImage}
+                  alt={productData.name}
+                  className="max-w-[200px]"
+                />
+              )}
+            </div>
             <div className="grid md:col-span-2 gap-2">
-              <label htmlFor="image">Product Image</label>
+              <label htmlFor="image">Replace Image</label>
               <input
                 type="file"
                 name="image"
                 id="image"
                 accept="image/*"
-                required
-                onChange={(e) => setProductData({...productData,image:e.target.files[0]})}
+                onChange={(e) =>
+                  setProductData({ ...productData, image: e.target.files[0] })
+                }
                 className="file:border file:px-3 file:py-1 file:border-gray-500 file:text-gray-500 file:mr-5 file:rounded-md"
               />
             </div>
             <div className="">
               <input
                 type="submit"
-                value="Create Product"
+                value="Edit Product"
                 className="text-white bg-black py-1 px-5 rounded-xl w-fit"
               />
             </div>
@@ -174,4 +209,4 @@ const CreateProduct = () => {
   );
 };
 
-export default CreateProduct;
+export default EditProduct;

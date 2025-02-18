@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    verification_otp:{
+        type: String,
+        default: null
+    }
 },{
     timestamps: true
 })

@@ -1,11 +1,17 @@
-const express = require('express')
-const authMiddleware = require('../middlewares/authMiddleware')
-const { getProducts, getSingleProduct, createProduct } = require('../controllers/productController')
-const router = new express.Router()
+const express = require("express");
+const authMiddleware = require("../middlewares/authMiddleware");
+const {
+  getProducts,
+  getSingleProduct,
+  createProduct,
+  editProduct,
+} = require("../controllers/productController");
+const upload = require("../middlewares/multer");
+const router = new express.Router();
 
-router.post('/',authMiddleware,createProduct)
-router.get('/',authMiddleware,getProducts)
-router.get('/:id',authMiddleware,getSingleProduct)
-
+router.post("/", authMiddleware, upload.single("image"), createProduct);
+router.get("/", authMiddleware, getProducts);
+router.get("/:id", authMiddleware, getSingleProduct);
+router.put("/:id",authMiddleware, upload.single("image"),editProduct)
 
 module.exports = router;
