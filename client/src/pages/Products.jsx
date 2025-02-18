@@ -24,7 +24,7 @@ const Products = () => {
         <h1 className="text-xl font-semibold">All Products</h1>
         <p className="text-sm text-gray-500">Login to add your products</p>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 py-5 gap-5">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 py-5 md:gap-10 gap-5">
         {products.map((product) => {
           return (
             <Link to={`/products/${product._id}`} key={product._id} className="">

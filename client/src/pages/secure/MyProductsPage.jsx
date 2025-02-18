@@ -32,7 +32,7 @@ const MyProductsPage = () => {
             <h1>My Products</h1>
             <Link to={"/secure/products/create"} className="bg-black text-white px-3 py-1 rounded-xl">Create</Link>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 py-5 gap-5">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 py-5 md:gap-10 gap-5">
           {
             products.map((product)=>{
               return(
