@@ -3,7 +3,6 @@ import { axiosInstance } from "../utils/axiosInstance";
 import GlobalProductCard from "../components/GlobalProductCard";
 import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
-import { toast } from "react-toastify";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
