@@ -9,7 +9,7 @@ const ProductCard = ({product}) => {
     // e.preventDefualt();
     try {
       const res = await toast.promise(axiosInstance.delete(`/api/product/${product._id}`),{
-        pending: "Creating product...",
+        pending: "Deleting product...",
         success: "Product Deleted",
         error: "Error",
       })
