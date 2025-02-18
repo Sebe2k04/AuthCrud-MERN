@@ -5,30 +5,47 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const Signup = () => {
-  const navigate = useNavigate()
-  const [username,setUsername] = useState(null)
-  const [mobile,setMobile] = useState(null)
+  const navigate = useNavigate();
+  const [username, setUsername] = useState(null);
+  const [mobile, setMobile] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [password2, setPassword2] = useState("");
-  console.log(import.meta.env.VITE_API_URL)
+  // const [password2, setPassword2] = useState("");
+  console.log(import.meta.env.VITE_API_URL);
   const [show, setShow] = useState(false);
   const handleShow = () => {
     show === true ? setShow(false) : setShow(true);
   };
+  const [error, setError] = useState(false);
+  const [isValid, setIsValid] = useState(false);
+
+  const handlePassword = (value) => {
+    // const value = e.target.value;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
+    setPassword(value);
+    if (passwordRegex.test(value)) {
+      setError(false);
+      setIsValid(true);
+    } else {
+      setError(true);
+      setIsValid(false);
+    }
+  };
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      if (password !== password2) {
-        throw new Error("Password not matched");
+      // if (password !== password2) {
+      //   throw new Error("Password not matched");
+      // }
+      if(error){
+        throw new Error("Password must follow all constraints")
       }
       const res = await toast.promise(
         axiosInstance.post("/api/auth/signup", {
           email,
           password,
           username,
-          mobile_no:mobile,
-
+          mobile_no: mobile,
         }),
         {
           pending: "Creating",
@@ -37,7 +54,7 @@ const Signup = () => {
         }
       );
       console.log(res);
-      navigate(`/auth/verify?email=${email}`)
+      navigate(`/auth/verify?email=${email}`);
     } catch (error) {
       console.log(error);
       toast.error(error.message);
@@ -109,7 +126,7 @@ const Signup = () => {
                   id="password"
                   required
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => handlePassword(e.target.value)}
                   className="py-1 w-full border-gray-200 rounded-md px-3 focus:outline-none bg-inherit"
                   placeholder="Enter your password"
                 />
@@ -128,7 +145,8 @@ const Signup = () => {
                 </div>
               </div>
             </div>
-            <div className="grid gap-1">
+
+            {/* <div className="grid gap-1">
               <label htmlFor="password" className="text-start">
                 Confirm Password
               </label>
@@ -158,6 +176,22 @@ const Signup = () => {
                   )}
                 </div>
               </div>
+            </div> */}
+            <div className="max-w-[250px] pt-2">
+              {error === true && (
+                <div className="text-red-500 text-sm">
+                  <h1>Password must include</h1>
+                  <ul className="list-disc pl-5">
+                    <li>Minimum 6 letters</li>
+                    <li>includes small letters</li>
+                    <li>includes Capital letters</li>
+                    <li>includes Numbers</li>
+                  </ul>
+                </div>
+              )}
+              {isValid && (
+                <p className="text-green-500 text-sm">Password is valid!</p>
+              )}
             </div>
             <div className="">
               <input

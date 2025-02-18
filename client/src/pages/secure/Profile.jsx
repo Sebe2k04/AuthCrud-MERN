@@ -9,7 +9,7 @@ const Profile = () => {
         </div>
         <div className="">
             <div className="pt-5 grid gap-2">
-                <h2><span className='font-semibold'>Username :</span> {user.username} <span className='bg-gray-100 py-1 px-3 rounded-xl'>verified</span></h2>
+                <h2><span className='font-semibold'>Username :</span> {user.username} <span className='bg-gray-300 py-1 px-3 rounded-xl'>verified</span></h2>
                 <h2><span className='font-semibold'>Email :</span> {user.email}</h2>
                 <h2><span className='font-semibold'>Mobile Number :</span> {user.mobile_no}</h2>
             </div>

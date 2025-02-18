@@ -6,6 +6,7 @@ const Navbar = () => {
   const { user } = useAuth();
   const handleLogout = () => {
     Cookies.remove("token")
+    Cookies.remove("userToken")
     location.reload();
   }
   return (
