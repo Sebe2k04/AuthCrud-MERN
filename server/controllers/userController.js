@@ -5,7 +5,7 @@ const getUser = async (req, res) => {
   if (!userId) {
     return res.status(401).json({ message: "Not authenticated" });
   } else {
-    const user = await Users.findById(userId).select('-password');
+    const user = await Users.findById(userId).select('-password -verification_otp');
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     } else {

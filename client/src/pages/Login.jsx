@@ -3,7 +3,7 @@ import { axiosInstance } from "../utils/axiosInstance";
 import { Link, useNavigate } from "react-router-dom";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,8 +13,8 @@ const Login = () => {
   const handleShow = () => {
     show === true ? setShow(false) : setShow(true);
   };
-  const ck = Cookies.get("token")
-  console.log(ck)
+  const ck = Cookies.get("token");
+  console.log(ck);
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -29,11 +29,21 @@ const Login = () => {
           error: "Invalid credentials",
         }
       );
-      navigate('/secure/products')
+      navigate("/secure/products");
       console.log(res);
+      console.log(res.status);
     } catch (error) {
       console.log(error);
-      toast.error(error.message);
+      console.log(error.status);
+      if (error.status === 404) {
+        toast.error("User not found");
+        navigate(`/auth/signup`);
+      } else if (error.status === 403) {
+        navigate(`/auth/verify?email=${email}`);
+        toast.error("User not Verified");
+      } else {
+        toast.error(error.message);
+      }
     }
   };
 

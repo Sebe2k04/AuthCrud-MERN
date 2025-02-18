@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { axiosInstance } from "../utils/axiosInstance";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const Signup = () => {
+  const navigate = useNavigate()
   const [username,setUsername] = useState(null)
   const [mobile,setMobile] = useState(null)
   const [email, setEmail] = useState("");
@@ -30,12 +31,13 @@ const Signup = () => {
 
         }),
         {
-          pending: "Authenticating",
-          success: "Authenticated",
-          error: "Invalid credentials",
+          pending: "Creating",
+          success: "Account Created",
+          error: "Error",
         }
       );
       console.log(res);
+      navigate(`/auth/verify?email=${email}`)
     } catch (error) {
       console.log(error);
       toast.error(error.message);

@@ -1,3 +1,4 @@
+require("dotenv").config();
 const nodemailer = require('nodemailer');
 
 const sendEmail = async (to, subject, text) => {
@@ -11,7 +12,7 @@ const sendEmail = async (to, subject, text) => {
         });
 
         await transporter.sendMail({
-            from: process.env.EMAIL_USER,
+            from: `AuthCrud Verification <${process.env.EMAIL_USER}>`,
             to,
             subject,
             text,
