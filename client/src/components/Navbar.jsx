@@ -71,7 +71,7 @@ const Navbar = () => {
               </Link>
               {user ? (
                 <div className="grid gap-5">
-                  <Link onClick={() => setOpen(false)} to={"/secure/dashboard"}>
+                  <Link onClick={() => setOpen(false)} to={"/secure/products"}>
                     Dashboard
                   </Link>
                   <Link onClick={() => setOpen(false)} to={"/secure/profile"}>
