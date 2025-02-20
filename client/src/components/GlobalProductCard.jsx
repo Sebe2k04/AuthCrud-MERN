@@ -4,7 +4,7 @@ const GlobalProductCard = ({ product }) => {
   return (
     <div className="border border-gray-200 rounded-xl py-2 ">
       <div className="px-2">
-        <img src={product.image} alt={product.name} className="aspect-square object-cover rounded-xl" />
+        <img src={product.image} alt={product.name} className="aspect-square object-cover rounded-xl w-full" />
       </div>
       <div className="p-2 px-4">
         <h1 className="capitalize font-semibold max-w-fit truncate">
