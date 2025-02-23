@@ -5,7 +5,8 @@ const fs = require('fs');
 const path = require('path');
 const sendEmail = async (to, subject, text) => {
     try {
-        const templatePath = path.join(process.cwd(), "/public/emails/otpEmail.html");
+        // const templatePath = path.join(process.cwd(), "/public/emails/otpEmail.html");
+        const templatePath = path.resolve(__dirname, "../public/emails/otpEmail.html");
         let emailHtml = fs.readFileSync(templatePath, "utf8");
         emailHtml = emailHtml.replace("{{otp}}",text);
         const transporter = nodemailer.createTransport({
