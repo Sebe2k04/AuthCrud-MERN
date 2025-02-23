@@ -55,7 +55,7 @@ const login = async (req, res) => {
       await sendEmail(
         user.email,
         "Verify Your AuthCrud Account",
-        `Your OTP IS: ${verification_otp}`
+        `${verification_otp}`
       );
       return res.status(403).json({ message: "User not verified" });
     }

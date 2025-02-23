@@ -1,8 +1,13 @@
 require("dotenv").config();
 const nodemailer = require('nodemailer');
+const fs = require('fs');
 
+const path = require('path');
 const sendEmail = async (to, subject, text) => {
     try {
+        const templatePath = path.join(process.cwd(), "../public/emails/otpEmail.html");
+        let emailHtml = fs.readFileSync(templatePath, "utf8");
+        emailHtml = emailHtml.replace("{{otp}}",text);
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -15,7 +20,7 @@ const sendEmail = async (to, subject, text) => {
             from: `AuthCrud Verification <${process.env.EMAIL_USER}>`,
             to,
             subject,
-            text,
+            html: emailHtml,
         });
         
         console.log('Email sent');
