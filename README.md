@@ -40,16 +40,17 @@ npm install
 #### Create a `.env` file in the `server` folder and add:  
 
 ```
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
+MONGO_DB_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
 CLOUDINARY_CLOUD_NAME=
 CLOUDINARY_API_KEY=
 CLOUDINARY_API_SECRET=
-JWT_EXPIRES_IN=
-NODE_ENV=
+CLOUDINARY_FOLDER_NAME="AuthCrud"
+JWT_EXPIRES_IN="1d"
+NODE_ENV="production"
 EMAIL_USER=
 EMAIL_PASS=
+CLIENT_URL="http://localhost:5173"
 ```
 
 #### Start the Backend Server  
@@ -65,16 +66,17 @@ cd frontend
 npm install
 npm start
 ```
+#### Create a `.env` file in the `server` folder and add:  
+
+```
+VITE_API_URL = "http://localhost:5555"
+```
 
 ## 🚀 Usage  
 
 - Open `http://localhost:3000` in your browser.  
 - Register or login using valid credentials.  
 - Perform CRUD operations on the data.  
-
-## 📷 Screenshots  
-
-_Add screenshots here if available._  
 
 ## 💡 Future Improvements  
 
@@ -85,6 +87,10 @@ _Add screenshots here if available._
 ## 📜 License  
 
 This project is **open-source** under the [MIT License](LICENSE).  
+
+## Ownership
+
+This project is developed by @Sebe2k04 only
 
 ## 🤝 Contributing  
 
